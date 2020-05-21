@@ -1,0 +1,13 @@
+name: bmcs_fragmentation
+channels:
+- conda-forge
+dependencies:
+- appmode
+- rise
+- jupyter_contrib_nbextensions
+- matplotlib
+- numpy
+- scipy
+- ipywidgets
+
+

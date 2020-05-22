@@ -1,4 +1,8 @@
-# bmcs_fragmentation
+# Probabilistic Multiple-Cracking Model of Brittle-Matrix Composites 
+
+## Execute [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/rosoba/bmcs_fragmentation.git/master?urlpath=%2Fapps%2Ffragmentation.ipynb)
+The notebook can be executed without directly
+using the binder service. It takes a while for the repository image to build up.
 
 ## Focus
 The repository contains a jupyter notebook explaining and demonstrating 
@@ -9,12 +13,3 @@ of a brittle-matrix composites.
 To execute the notebooks locally install the anaconda suite. Required packages
 are specified in the environment.yml file. The entry point to the jupyter suite 
 is the fragmentation.ipynb notebook.
-
-## Binder
-The notebook can be open also in the clouds without any local installation
-using the binder service. It takes a while for the repository image to build up.
-[![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/rosoba/bmcs_fragmentation.git/master?filepath=fragmentation.ipynb)
-
-
-
-

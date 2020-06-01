@@ -1,6 +1,6 @@
 # Probabilistic Multiple-Cracking Model of Brittle-Matrix Composites 
 
-## Execute [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/rosoba/bmcs_fragmentation.git/master?urlpath=%2Fapps%2Ffragmentation.ipynb)
+## Execute [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/bmcs-group/bmcs_fragmentation.git/master?urlpath=%2Fapps%2Ffragmentation.ipynb)
 The notebook can be executed without directly
 using the binder service. It takes a while for the repository image to build up.
 

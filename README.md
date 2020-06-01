@@ -13,3 +13,5 @@ of a brittle-matrix composites.
 To execute the notebooks locally install the anaconda suite. Required packages
 are specified in the environment.yml file. The entry point to the jupyter suite 
 is the fragmentation.ipynb notebook.
+
+[![DOI](https://zenodo.org/badge/265839531.svg)](https://zenodo.org/badge/latestdoi/265839531)

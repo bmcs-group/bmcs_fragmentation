@@ -1,4 +1,4 @@
-# Probabilistic Multiple-Cracking Model of Brittle-Matrix Composites 
+# Probabilistic Multiple-Cracking Model of Brittle-Matrix Composites: One-by-One Crack Tracing Algorithm
 
 ## Execute [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/bmcs-group/bmcs_fragmentation.git/master?urlpath=%2Fapps%2Ffragmentation.ipynb)
 The notebook can be executed directly

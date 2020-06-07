@@ -1,7 +1,7 @@
-# Probabilistic Multiple-Cracking Model of Brittle-Matrix Composites 
+# Probabilistic Multiple-Cracking Model of Brittle-Matrix Composites: One-by-One Crack Tracing Algorithm
 
-## Execute [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/rosoba/bmcs_fragmentation.git/master?urlpath=%2Fapps%2Ffragmentation.ipynb)
-The notebook can be executed without directly
+## Execute [![Binder](https://mybinder.org/badge.svg)](https://mybinder.org/v2/gh/bmcs-group/bmcs_fragmentation.git/master?urlpath=%2Fapps%2Ffragmentation.ipynb)
+The notebook can be executed directly
 using the binder service. It takes a while for the repository image to build up.
 
 ## Focus
@@ -13,3 +13,5 @@ of a brittle-matrix composites.
 To execute the notebooks locally install the anaconda suite. Required packages
 are specified in the environment.yml file. The entry point to the jupyter suite 
 is the fragmentation.ipynb notebook.
+
+[![DOI](https://zenodo.org/badge/265839531.svg)](https://zenodo.org/badge/latestdoi/265839531)

@@ -11,7 +11,7 @@ using the binder service. It takes a while for the repository image to build up.
 ## Cite with [![DOI](https://zenodo.org/badge/265839531.svg)](https://zenodo.org/badge/latestdoi/265839531)
 The repository can refered to using a unique doi hosted at https://zenodo.org 
 
-## Install with [![conda](https://anaconda.org/anaconda/spyder/badges/installer/conda.svg)][https://www.anaconda.com]
+## Install with [![conda](https://anaconda.org/anaconda/spyder/badges/installer/conda.svg)](https://www.anaconda.com)
 To execute the notebooks locally install the anaconda suite. Required packages
 are specified in the environment.yml file. The entry point to the jupyter suite 
 is the fragmentation.ipynb notebook.

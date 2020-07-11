@@ -4,31 +4,61 @@ Probabilistic multiple cracking model
 
 import traits.api as tr
 import numpy as np
+import warnings
+
+warnings.filterwarnings("error", category=RuntimeWarning)
 
 
-class CrackBridgeRS(tr.HasTraits):
+class ModelParams(tr.HasTraits):
+    """
+    Record of all material parameters of the composite. The model components
+    (PullOutModel, CrackBridgeRespSurf, PMCM) are all linked to the database record
+    and access the parameters they require. Some parameters are shared across all
+    three components (Em, Ef, vf), some are specific to a particular type of the
+    PulloutModel.
+    """
+    Em = tr.Float(28000)
+    Ef = tr.Float(180000)
+    vf = tr.Float(0.01)
+    T = tr.Float(8)
+    n_x = tr.Int(5000)
+    L_x = tr.Float(500)
+    sig_cu = tr.Float(20)
+    sig_mu = tr.Float(10)
+
+
+class PullOutModel(tr.HasTraits):
+    """
+    Return the matrix stress profile of a crack bridge for a given control slip
+    at the loaded end
+    """
+    mp = tr.Instance(ModelParams)
+
+
+
+
+class CrackBridgeRespSurface(tr.HasTraits):
     """
     Crack bridge response surface that returns the values of matrix stress
     along ahead of a crack and crack opening for a specified remote stress
     and boundary conditions.
     """
+    mp = tr.Instance(ModelParams)
 
-    def get_sig_m(self, sig_c):  # matrix stress (*\label{sig_m}*)
-        sig_m = np.minimum(z * T * vf / (1 - vf), Em * sig_c / (vf * Ef + (1 - vf) * Em))
-        return sig_m
+    def get_sig_m(self, sig_c: float, z: np.ndarray) -> np.ndarray:
+        """
 
-    def get_sig_m(self, sig_c):  # matrix stress (*\label{sig_m}*)
-        sig_m = np.minimum(z * T * vf / (1 - vf), Em * sig_c / (vf * Ef + (1 - vf) * Em))
+        :type sig_c: np.ndarray
+        """
+        mp = self.mp
+        sig_m = np.minimum(z * mp.T * mp.vf / (1 - mp.vf), mp.Em * sig_c /
+                           (mp.vf * mp.Ef + (1 - mp.vf) * mp.Em))
         return sig_m
 
     def get_eps_f(self, sig_c):  # reinforcement strain (*\label{sig_f}*)
         sig_m = get_sig_m(z, sig_c)
         eps_f = (sig_c - sig_m * (1 - vf)) / vf / Ef
         return eps_f
-
-    Em = tr.Float(28000)
-    Ef = tr.Float(180000)
-    vf = tr.Float(0.01)
 
     @property
     def _get_Ec(self):
@@ -37,27 +67,21 @@ class CrackBridgeRS(tr.HasTraits):
 
 class PMCM(tr.HasTraits):
     """
-    Implementthe global crack tracing algorithm based on a crack bridge response surface
+    Implement the global crack tracing algorithm based on a crack bridge response surface
     """
+    mp = tr.Instance(ModelParams)
 
-    cb_rs = tr.Instance(CrackBridgeRS)
+    cb_rs = tr.Instance(CrackBridgeRespSurface)
 
-    n_x = tr.Int(5000)
-    L_x = tr.Float(500)
-    sig_cu = tr.Float(20)
-
-    sig_mu = tr.Float(10)
-
-    ## Specimen discretization
     def get_z_x(self, x, XK):  # distance to the closest crack (*\label{get_z_x}*)
+        """Specimen discretization
+        """
         z_grid = np.abs(x[:, np.newaxis] - np.array(XK)[np.newaxis, :])
         return np.amin(z_grid, axis=1)
 
-    import warnings  # (*\label{error1}*)
-    warnings.filterwarnings("error", category=RuntimeWarning)  # (*\label{error2}*)
-
     def get_sig_c_z(self, sig_mu, z, sig_c_pre):
         """
+        :param sig_c_pre:
         :type sig_mu: float
         """
         # crack initiating load at a material element

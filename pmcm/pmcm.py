@@ -88,9 +88,12 @@ class PMCM(tr.HasTraits):
         """
         mp = self.mp
         # crack initiating load at a material element
+        print('sig_mu', sig_mu)
         fun = lambda sig_c: sig_mu - self.cb_rs.get_sig_m(z, sig_c)
         try:  # search for the local crack load level
-            return newton(fun, sig_c_pre)
+            sig_c = newton(fun, sig_c_pre)
+            print('sig_c', sig_c)
+            return sig_c
         except (RuntimeWarning, RuntimeError):
             # solution not found (shielded zone) return the ultimate composite strength
             return mp.sig_cu
@@ -99,6 +102,8 @@ class PMCM(tr.HasTraits):
         # crack initiating loads over the whole specimen
         get_sig_c_x = np.vectorize(self.get_sig_c_z)
         sig_c_x = get_sig_c_x(sig_mu_x, z_x, sig_c_pre)
+        print('sig_c_x', z_x, x, sig_c_pre, sig_mu_x)
+        print('sig_c_x', sig_c_x)
         y_idx = np.argmin(sig_c_x)
         return sig_c_x[y_idx], x[y_idx]
 
@@ -119,14 +124,18 @@ class PMCM(tr.HasTraits):
         idx_0 = np.argmin(sig_mu_x)
         XK.append(x[idx_0])  # position of the first crack
         sig_c_0 = sig_mu_x[idx_0] * Ec / Em
+        print('sig_c_0', sig_c_0)
         sig_c_K.append(sig_c_0)
         eps_c_K.append(sig_mu_x[idx_0] / Em)
 
         while True:
+            print('xxxxxxxxxxxxxxxxxxxxxxx')
             z_x = self.get_z_x(x, XK)  # distances to the nearest crack
+            print('sig_c_K', sig_c_K)
             sig_m_x_K.append(self.cb_rs.get_sig_m(z_x, sig_c_K[-1]))  # matrix stress
             sig_c_k, y_i = self.get_sig_c_K(z_x, x, sig_c_K[-1], sig_mu_x)  # identify next crack
-            if sig_c_k == mp.sig_cu:  # (*\label{no_crack}*)
+            print(sig_c_k, y_i)
+            if sig_c_k == mp.sig_cu:
                 break
             if update_progress:  # callback to user interface
                 update_progress(sig_c_k)

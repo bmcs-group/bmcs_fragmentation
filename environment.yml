@@ -9,7 +9,7 @@ dependencies:
 - scipy
 - ipywidgets
 - pip
-pip:
+- pip:
   - bmcs_utils
 
 

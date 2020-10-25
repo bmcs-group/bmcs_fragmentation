@@ -4,7 +4,7 @@ channels:
 dependencies:
 - appmode
 - jupyter_contrib_nbextensions
-- matplotlib
+- matplotlib-base
 - numpy
 - scipy
 - ipywidgets

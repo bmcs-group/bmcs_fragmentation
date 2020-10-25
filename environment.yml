@@ -8,8 +8,5 @@ dependencies:
 - numpy
 - scipy
 - ipywidgets
-- pip
-- pip:
-    - bmcs_utils
 
 

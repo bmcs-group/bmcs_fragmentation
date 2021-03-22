@@ -2,6 +2,7 @@
 Probabilistic multiple cracking model
 """
 from typing import List, Any, Union
+import bmcs_utils.api as bu
 
 import traits.api as tr
 import numpy as np
@@ -11,7 +12,7 @@ from scipy.optimize import newton
 warnings.filterwarnings("error", category=RuntimeWarning)
 
 
-class ModelParams(tr.HasTraits):
+class ModelParams(bu.Model):
     """
     Record of all material parameters of the composite. The model components
     (PullOutModel, CrackBridgeRespSurf, PMCM) are all linked to the database record
@@ -34,7 +35,7 @@ class ModelParams(tr.HasTraits):
         return self.Em * (1 - self.vf) + self.Ef * self.vf  # [MPa] mixture rule
 
 
-class PullOutModel(tr.HasTraits):
+class PullOutModel(bu.Model):
     """
     Return the matrix stress profile of a crack bridge for a given control slip
     at the loaded end
@@ -42,7 +43,7 @@ class PullOutModel(tr.HasTraits):
     mp = tr.Instance(ModelParams)
 
 
-class CrackBridgeRespSurface(tr.HasTraits):
+class CrackBridgeRespSurface(bu.Model):
     """
     Crack bridge response surface that returns the values of matrix stress
     along ahead of a crack and crack opening for a specified remote stress
@@ -67,13 +68,13 @@ class CrackBridgeRespSurface(tr.HasTraits):
         return eps_f
 
 
-class PMCM(tr.HasTraits):
+class PMCM(bu.Model):
     """
     Implement the global crack tracing algorithm based on a crack bridge response surface
     """
-    mp = tr.Instance(ModelParams)
+    mp = bu.Instance(ModelParams)
 
-    cb_rs = tr.Instance(CrackBridgeRespSurface)
+    cb_rs = bu.Instance(CrackBridgeRespSurface)
 
     def get_z_x(self, x, XK):  # distance to the closest crack (*\label{get_z_x}*)
         """Specimen discretization

@@ -1,4 +1,4 @@
-name: bmcs_fragmentation
+name: bmcs_env
 channels:
 - conda-forge
 dependencies:
@@ -11,3 +11,4 @@ dependencies:
 - pip
 - pip:
     - bmcs_utils
+    - -e .
